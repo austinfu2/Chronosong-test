@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chronosong</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+    <link
+      href="https://sp-bootstrap.global.ssl.fastly.net/8.0.0/sp-bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="style.css" rel="stylesheet" />
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://button.glitch.me/button.js"></script>
+
+    <!-- Include the Web Playback SDK -->
+<!--    <script src="https://sdk.scdn.co/spotify-player.js"></script>-->
+
+    <!-- Include our Javascript -->
+    <script src="script.js" defer></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"
+    />
+  </head>
+
+  <body class="container">
+    <div class="alert alert-info" role="alert">
+     If you have Spotify Premium, the playback will start
+      automatically.
+    </div>
+
+    <!-- Project Helper -->
+    <div class="glitchButton pull-right"></div>
+
+    <h1 class="text-tangerine">Chronosong</h1>
+
+
+    <div class="row padding">
+      <center>
+        <button id="big-button" class="btn btn-sm" onclick="getASong()">
+          Get a random song
+        </button>
+      </center>
+    </div>
+
+    <div class="row padding">
+      <center class="contender">
+        <a href="#" onclick="saveTrack('current-track-name-save')">
+          <img style="display:none;" id="current-track-name-save" src="//:0" />
+        </a>
+        <br />
+        <iframe
+          id="embed-uri"
+          src="about:blank"
+          width="300"
+          height="380"
+          frameborder="0"
+          allowtransparency="true"
+          allow="encrypted-media"
+        ></iframe>
+      </center>
+    </div>
+    <div class="row">
+  <div class="col-md-12" id="songQuestion">
+    <h5>What year was this song released?</h5>
+  </div>
+  <div class="col-md-12" id="slider-container">
+    <div id="slider"></div>
+    <div id="year-label"></div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.css" />
+
+<script>
+const slider = document.getElementById('slider');
+noUiSlider.create(slider, {
+    start: 1950,
+    step: 1,
+    connect: 'lower',
+    range: {
+        'min': 1900,
+        'max': 2023
+    },
+    pips: {
+  mode: 'values',
+  values: Array.from(Array(13).keys()).map(x => x * 10 + 1900),
+  density: 10
+}
+});
+
+const yearLabel = document.createElement('div');
+yearLabel.classList.add('year-label');
+slider.parentElement.insertBefore(yearLabel, slider);
+
+slider.noUiSlider.on('update', function (values, handle) {
+    const year = Math.round(values[handle]);
+    yearLabel.innerHTML = year;
+});
+
+
+</script>
+<div class="row padding">
+  <center>
+    <button id="big-button" class="btn btn-sm" onclick="getASong()">
+      Start
+    </button>
+    <input type="submit" id="submit" value="Submit" onclick="submitAnswer()">
+  </center>
+</div>
+    <footer>
+      <p>made with <3 by <a href="https://www.github.com/austinfu2">@austin_urraca</a>, using
+        <a href="https://developer.spotify.com/documentation/web-api/">Spotify API</a> and
+        inspired by <a href="https://www.chronophoto.app">Chronophoto.app</a>
+        <br />
+      </p>
+    </footer>
+  </body>
+</html>

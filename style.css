@@ -1,0 +1,85 @@
+body {
+    background-color: #FAFAFA;
+}
+
+.container {
+  padding: 2em;
+}
+
+.padding {
+  padding: 1em;
+}
+
+.modal-grid {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-row-gap: 16px;
+}
+.modal-body h1,
+.modal-grid {
+  margin-bottom: 36px;
+}
+
+footer {
+  text-align: center;
+  font-family: "Oswald";
+}
+
+.year-label {
+    position: relative;
+    top: 0px;
+    left: 420px;
+    text-align: center;
+    background-color: #333;
+    color: #FAFAFA;
+    padding: 0.5rem;
+    font-size: 5rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    width: 20%
+}
+
+.slider {
+    margin-top: 20px;
+}
+
+.noUi-pips {
+    margin-top: 10px;
+    padding-bottom: 40px;
+}
+
+.noUi-value-large {
+    background-color: #FAFAFA;
+    color: #092348;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.noUi-horizontal .noUi-connect {
+  background-color: #1DB954;
+  height: 8px;
+}
+
+#slider-container {
+  margin-bottom: 100px;
+}
+
+.text-tangerine {
+    font-family: "Oswald", cursive;
+    font-size: 60px;
+    margin-bottom: 0px;
+    margin-top: 20px;
+    text-align: center;
+    color: 092348;
+  }
+
+  .padding {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  #embed-uri {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
