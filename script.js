@@ -91,6 +91,8 @@ function makeid(length) {
   return result;
 }
 
+let release_year = 2023;
+
 function getASong() {
   let random_seed = makeid(2);
   let random_offset = Math.floor(Math.random() * 2000); // returns a random integer from 0 to 9
@@ -123,7 +125,8 @@ function getASong() {
 
             // save the release date in a variable
       let release_date = new Date(releaseDate).toLocaleDateString();
-      console.log("Release date: " + release_date);
+      const releaseYearString = release_date.slice(-4);
+      const release_year = parseInt(releaseYearString);
     }
   });
 }
@@ -155,8 +158,8 @@ function saveTrack(tid) {
 let currentRound = 1;
 const totalRounds = 5;
 let totalScore = 0;
+let score = 0;
 
-currentRound += 1;
 if (currentRound > totalRounds) {
   currentRound = 1;
   totalScore = 0;
@@ -171,7 +174,7 @@ $(".next-round").hide();
 // Function to start a new round
 function startRound() {
   // Update the round number display
-  document.getElementById('round').innerHTML = `Round ${round}`;
+  //document.getElementById('round').innerHTML = `Round ${round}`;
 
   // Generate a random song using Spotify API
   getRandomSong();
@@ -179,8 +182,7 @@ function startRound() {
 
 function submitAnswer() {
   const selectedYear = Math.round(slider.noUiSlider.get());
-  const difference = Math.abs(selectedYear - releaseYear);
-  let score = 0;
+  const difference = Math.abs(selectedYear - release_year);
   if (difference === 0) {
     score = 1000;
   } else if (difference === 1) {
@@ -207,13 +209,19 @@ function submitAnswer() {
   totalScore += score;
   const result = `You scored ${score} points`;
   const total = `Total score: ${totalScore}`;
-  $("#points").html(result + "<br>" + total);
+  const round = `Round: ${currentRound + 1} / 5`;
+
+  // update the HTML elements
+  $("#points").html(result + "<br><br>" + total);
+  $("#round").html(round);
 
   // get slider handles
   const handles = slider.querySelectorAll('.noUi-handle');
 
   // set background color of slider
-  const background = `linear-gradient(to right, #CCC 0%, #CCC ${selectedYear - 1900}%, #F00 ${selectedYear - 1900}%, #F00 100%)`;
+  const start = Math.min(selectedYear, release_year);
+  const end = Math.max(selectedYear, release_year);
+  const background = `linear-gradient(to right, #CCC 0%, #CCC ${start - 1900}%, #F00 ${start - 1900}%, #F00 ${end - 1900}%, #CCC ${end - 1900}%, #CCC 100%)`;
   slider.style.background = background;
 
   // update slider handles
@@ -225,4 +233,13 @@ function submitAnswer() {
   $(".noUi-marker-sub").addClass("selected");
   $(".submit").hide();
   $(".next-round").show();
+}
+
+// function to go to the next round
+function nextRound() {
+  round++; // increment the round variable
+  $(".submit").show();
+  $(".next-round").hide();
+  $("#round").html(`Round ${round}`);
+  getASong();
 }
