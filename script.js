@@ -91,7 +91,7 @@ function makeid(length) {
   return result;
 }
 
-let release_year = 2023;
+let release_year;
 
 function getASong() {
   let random_seed = makeid(2);
@@ -126,33 +126,16 @@ function getASong() {
             // save the release date in a variable
       let release_date = new Date(releaseDate).toLocaleDateString();
       const releaseYearString = release_date.slice(-4);
-      const release_year = parseInt(releaseYearString);
-    }
-  });
-}
+      release_year = parseInt(releaseYearString);
+      totalYears = 2023 - release_year;
 
-function saveTrack(tid) {
-  var track = $("#" + tid)
-    .attr("data-song")
-    .split(":")
-    .pop();
-
-  $.ajax({
-    url: "https://api.spotify.com/v1/me/tracks?ids=" + track,
-    type: "PUT",
-    beforeSend: function(xhr) {
-      xhr.setRequestHeader("Authorization", "Bearer " + _token);
+      $(".start").hide();
     },
-    success: function(data) {
-      console.log(data);
-      $("#" + tid).attr(
-        "src",
-        "https://cdn.glitch.com/eed3cfeb-d097-4769-9d03-2d3a6cc7c004%2Ficons8-heart-24(1).png?v=1597232463038"
-      );
-    }
-  });
+    error: function (xhr, ajaxOptions, thrownError) {
+        alert("please Reload Song, this Spotify link did not work");
+      },
+    });
 }
-
 
 // GAME LOGIC
 let currentRound = 1;
@@ -160,24 +143,18 @@ const totalRounds = 5;
 let totalScore = 0;
 let score = 0;
 
-if (currentRound > totalRounds) {
-  currentRound = 1;
-  totalScore = 0;
-}
-
 slider.noUiSlider.set(1950);
 yearLabel.innerHTML = 1950;
 $("#round").html("Round " + currentRound + " of " + totalRounds);
 $("#points").html("");
 $(".next-round").hide();
+$(".reload").hide();
 
 // Function to start a new round
 function startRound() {
-  // Update the round number display
-  //document.getElementById('round').innerHTML = `Round ${round}`;
-
   // Generate a random song using Spotify API
-  getRandomSong();
+  getASong();
+  $(".next-round").hide();
 }
 
 function submitAnswer() {
@@ -209,19 +186,25 @@ function submitAnswer() {
   totalScore += score;
   const result = `You scored ${score} points`;
   const total = `Total score: ${totalScore}`;
-  const round = `Round: ${currentRound + 1} / 5`;
 
   // update the HTML elements
-  $("#points").html(result + "<br><br>" + total);
-  $("#round").html(round);
+    $("#points").html(result);
+    $("#total-score").html(total);
+    $(".submit").hide();
+    $(".next-round").show();
 
-  // get slider handles
+    // Display the release year above the Spotify web player
+    const releaseYearDiv = document.getElementById("release-year");
+    releaseYearDiv.innerHTML = release_year;
+    releaseYearDiv.style.display = "inline-block";
+
+   /* // get slider handles
   const handles = slider.querySelectorAll('.noUi-handle');
 
   // set background color of slider
   const start = Math.min(selectedYear, release_year);
   const end = Math.max(selectedYear, release_year);
-  const background = `linear-gradient(to right, #CCC 0%, #CCC ${start - 1900}%, #F00 ${start - 1900}%, #F00 ${end - 1900}%, #CCC ${end - 1900}%, #CCC 100%)`;
+  const background = `linear-gradient(to right, #CB37B8 0%, #CCC ${start - 1900}%, #F00 ${start - 1900}%, #F00 ${end - 1900}%, #CB37B8 ${end - 1900}%, #CB37B8 100%)`;
   slider.style.background = background;
 
   // update slider handles
@@ -230,16 +213,58 @@ function submitAnswer() {
   });
 
   $(".noUi-marker-large").addClass("selected");
-  $(".noUi-marker-sub").addClass("selected");
-  $(".submit").hide();
-  $(".next-round").show();
+  $(".noUi-marker-sub").addClass("selected");*/
 }
 
 // function to go to the next round
 function nextRound() {
-  round++; // increment the round variable
+   currentRound++; // increment the round variable
+   if (currentRound > totalRounds) {
+    showFinalScore();
+     $(".next-round").hide();
+    return;
+}
+  const round = `Round: ${currentRound} / ${totalRounds}`;
+  $("#round").html(round);
   $(".submit").show();
   $(".next-round").hide();
-  $("#round").html(`Round ${round}`);
+  $(".reload").show();
   getASong();
+}
+
+function saveTrack(tid) {
+  var track = $("#" + tid)
+    .attr("data-song")
+    .split(":")
+    .pop();
+
+  $.ajax({
+    url: "https://api.spotify.com/v1/me/tracks?ids=" + track,
+    type: "PUT",
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("Authorization", "Bearer " + _token);
+    },
+    success: function(data) {
+      console.log(data);
+      $("#" + tid).attr(
+        "src",
+        "https://cdn.glitch.com/eed3cfeb-d097-4769-9d03-2d3a6cc7c004%2Ficons8-heart-24(1).png?v=1597232463038"
+      );
+    }
+  });
+}
+
+function showFinalScore() {
+ $("#spotify-web-player").hide();
+ $(".next-round").hide();
+ $(".reload").hide();
+ $(".final-score").show();
+
+// retrieve and display high score if possible
+let highScore = localStorage.getItem("highScore");
+if (!highScore || totalScore > highScore) {
+    highScore = totalScore;
+    localStorage.setItem("highScore", highScore);
+}
+    $("#high-score-final").html(`High Score: ${highScore}`);
 }
