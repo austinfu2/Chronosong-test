@@ -34,29 +34,33 @@
   </head>
 
   <body class="container">
-    <div class="alert alert-info" role="alert">
-     If you have Spotify Premium, the playback will start
-      automatically.
-    </div>
-
-    <!-- Project Helper -->
-    <div class="glitchButton pull-right"></div>
-
-    <h1 class="text-tangerine">Chronosong</h1>
-    <h2 id="round">Round  / 5 </h2> <h2><button id="big-button" class="next-round btn btn-sm" onclick="nextRound()">
+    <!-- Project Helper      <div class="glitchButton pull-right"></div>-->
+        <h1 class="text-tangerine">Chronosong</h1>
+    <div class="game-container">
+    <div class="game-left">
+    <h2 id="round">Round  / 5 </h2> <h2><button id="next-round big-button" class="next-round btn btn-sm" onclick="nextRound()">
           Next Round
         </button></h2>
     <h3 id="points"></h3>
+    <h3 id="total-score"></h3>
+            <h3 id="high-score-final"></h3>
 
     <div class="row padding">
       <center>
-        <button id="big-button" class="btn btn-sm" onclick="getASong()">
-          Get a random song
+        <button id="big-button" class="start btn btn-sm" onclick="getASong()">
+          Click Start (Spotify Premium will autoplay)
+        </button>
+          <button id="big-button" class="reload btn btn-sm" onclick="getASong()">
+          Reload song
         </button>
       </center>
     </div>
+    </div>
 
+
+    <div class="game-right">
     <div class="row padding">
+               <div id="spotify-web-player">
       <center class="contender">
         <a href="#" onclick="saveTrack('current-track-name-save')">
           <img style="display:none;" id="current-track-name-save" src="//:0" />
@@ -73,10 +77,13 @@
         ></iframe>
       </center>
     </div>
+    </div>
+
     <div class="row">
   <div class="col-md-12" id="songQuestion">
     <h5>What year was this song released?</h5>
   </div>
+      <div id="release-year" style="display: none;"></div>
   <div class="col-md-12" id="slider-container">
     <div id="slider"></div>
     <div id="year-label"></div>
@@ -120,6 +127,7 @@ slider.noUiSlider.on('update', function (values, handle) {
     </button>
   </center>
 </div>
+    </div>
     <footer>
       <p>made with <3 by <a href="https://www.github.com/austinfu2">@austin_urraca</a>, using
         <a href="https://developer.spotify.com/documentation/web-api/">Spotify API</a>,
