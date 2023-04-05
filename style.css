@@ -88,3 +88,20 @@ footer {
   background-color: #092348;
   color: #FAFAFA;
   }
+
+ .next-round {
+  display: block;
+  margin: 0 auto;
+  font-size: 24px;
+  width: 200px;
+  height: 60px;
+}
+
+#release-year {
+    font-family: "Oswald", cursive;
+    font-size: 60px;
+    margin-bottom: 0px;
+    margin-top: 20px;
+    text-align: center;
+    color: #092348;
+}
