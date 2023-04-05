@@ -18,14 +18,14 @@ const authEndpoint = "https://accounts.spotify.com/authorize";
 
 // Replace with your app's client ID, redirect URI and desired scopes
 const clientId = "22aecdf08e6048a08c0d64f052b035c2";
-const redirectUri = "https://spotify-random-song.glitch.me";
+const redirectUri = "http://127.0.0.1:5000/";
 const scopes = [
   "streaming",
   "user-modify-playback-state",
   "user-library-modify"
 ];
 
- If there is no token, redirect to Spotify authorization
+// If there is no token, redirect to Spotify authorization
 if (!_token) {
   window.location = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
     "%20"
@@ -148,4 +148,81 @@ function saveTrack(tid) {
       );
     }
   });
+}
+
+
+// GAME LOGIC
+let currentRound = 1;
+const totalRounds = 5;
+let totalScore = 0;
+
+currentRound += 1;
+if (currentRound > totalRounds) {
+  currentRound = 1;
+  totalScore = 0;
+}
+
+slider.noUiSlider.set(1950);
+yearLabel.innerHTML = 1950;
+$("#round").html("Round " + currentRound + " of " + totalRounds);
+$("#points").html("");
+$(".next-round").hide();
+
+// Function to start a new round
+function startRound() {
+  // Update the round number display
+  document.getElementById('round').innerHTML = `Round ${round}`;
+
+  // Generate a random song using Spotify API
+  getRandomSong();
+}
+
+function submitAnswer() {
+  const selectedYear = Math.round(slider.noUiSlider.get());
+  const difference = Math.abs(selectedYear - releaseYear);
+  let score = 0;
+  if (difference === 0) {
+    score = 1000;
+  } else if (difference === 1) {
+    score = 918;
+  } else if (difference === 2) {
+    score = 849;
+  } else if (difference === 3) {
+    score = 764;
+  } else if (difference === 4) {
+    score = 680;
+  } else if (difference === 5) {
+    score = 600;
+  } else if (difference === 6) {
+    score = 540;
+  } else if (difference === 7) {
+    score = 466;
+  } else if (difference === 8) {
+    score = 396;
+  } else if (difference === 9) {
+    score = 222;
+  } else if (difference === 10) {
+    score = 111;
+  }
+  totalScore += score;
+  const result = `You scored ${score} points`;
+  const total = `Total score: ${totalScore}`;
+  $("#points").html(result + "<br>" + total);
+
+  // get slider handles
+  const handles = slider.querySelectorAll('.noUi-handle');
+
+  // set background color of slider
+  const background = `linear-gradient(to right, #CCC 0%, #CCC ${selectedYear - 1900}%, #F00 ${selectedYear - 1900}%, #F00 100%)`;
+  slider.style.background = background;
+
+  // update slider handles
+  handles.forEach(handle => {
+    handle.classList.add("selected");
+  });
+
+  $(".noUi-marker-large").addClass("selected");
+  $(".noUi-marker-sub").addClass("selected");
+  $(".submit").hide();
+  $(".next-round").show();
 }
