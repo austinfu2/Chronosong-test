@@ -10,7 +10,7 @@
       href="https://sp-bootstrap.global.ssl.fastly.net/8.0.0/sp-bootstrap.min.css"
       rel="stylesheet"
     />
-    <link href="style.css" rel="stylesheet" />
+    <link href="static/style.css" rel="stylesheet" />
     <script
       src="https://code.jquery.com/jquery-3.2.1.min.js"
       integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -22,7 +22,7 @@
 <!--    <script src="https://sdk.scdn.co/spotify-player.js"></script>-->
 
     <!-- Include our Javascript -->
-    <script src="script.js" defer></script>
+    <script src="static/script.js" defer></script>
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -112,10 +112,9 @@ slider.noUiSlider.on('update', function (values, handle) {
 </script>
 <div class="row padding">
   <center>
-    <button id="big-button" class="btn btn-sm" onclick="getASong()">
-      Start
+    <button id="big-button" class="submit btn btn-sm" onclick="submitAnswer()">
+      Submit
     </button>
-    <input type="submit" id="submit" value="Submit" onclick="submitAnswer()">
   </center>
 </div>
     <footer>
