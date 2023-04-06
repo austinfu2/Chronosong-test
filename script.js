@@ -143,8 +143,45 @@ const totalRounds = 5;
 let totalScore = 0;
 let score = 0;
 
+
+//Slider
+// get a reference to the slider element
+const slider = document.getElementById('slider');
+
+noUiSlider.create(slider, {
+    start: 1950,
+    step: 1,
+    connect: 'lower',
+    range: {
+        'min': 1900,
+        'max': 2023
+    },
+    pips: {
+  mode: 'values',
+  values: Array.from(Array(13).keys()).map(x => x * 10 + 1900),
+  density: 10
+}
+});
+
+const yearLabel = document.createElement('div');
+yearLabel.classList.add('year-label');
+slider.parentElement.insertBefore(yearLabel, slider);
+
+slider.noUiSlider.on('update', function (values, handle) {
+    const year = Math.round(values[handle]);
+    yearLabel.innerHTML = year;
+});
+
+
+// your code that uses the "slider" variable here
 slider.noUiSlider.set(1950);
 yearLabel.innerHTML = 1950;
+
+slider.noUiSlider.on('update', function (values, handle) {
+    yearLabel.innerHTML = Math.round(values[handle]);
+});
+
+
 $("#round").html("Round " + currentRound + " of " + totalRounds);
 $("#points").html("");
 $(".next-round").hide();
@@ -197,23 +234,6 @@ function submitAnswer() {
     const releaseYearDiv = document.getElementById("release-year");
     releaseYearDiv.innerHTML = release_year;
     releaseYearDiv.style.display = "inline-block";
-
-   /* // get slider handles
-  const handles = slider.querySelectorAll('.noUi-handle');
-
-  // set background color of slider
-  const start = Math.min(selectedYear, release_year);
-  const end = Math.max(selectedYear, release_year);
-  const background = `linear-gradient(to right, #CB37B8 0%, #CCC ${start - 1900}%, #F00 ${start - 1900}%, #F00 ${end - 1900}%, #CB37B8 ${end - 1900}%, #CB37B8 100%)`;
-  slider.style.background = background;
-
-  // update slider handles
-  handles.forEach(handle => {
-    handle.classList.add("selected");
-  });
-
-  $(".noUi-marker-large").addClass("selected");
-  $(".noUi-marker-sub").addClass("selected");*/
 }
 
 // function to go to the next round
