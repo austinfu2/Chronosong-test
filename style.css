@@ -2,14 +2,6 @@ body {
     background-color: #FAFAFA;
 }
 
-.container {
-  padding: 2em;
-}
-
-.padding {
-  padding: 1em;
-}
-
 .modal-grid {
   display: grid;
   grid-template-columns: 33% 33% 33%;
@@ -23,6 +15,7 @@ body {
 footer {
   text-align: center;
   font-family: "Oswald";
+  padding-top:100px;
 }
 
 .year-label {
@@ -61,6 +54,11 @@ footer {
   height: 8px;
 }
 
+#slider2 .noUi-connect {
+  background-color: #D30000;
+  height: 8px;
+}
+
 #slider-container {
   margin-bottom: 100px;
 }
@@ -74,11 +72,6 @@ footer {
     color: #092348;
   }
 
-  .padding {
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
-
   #embed-uri {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -87,6 +80,7 @@ footer {
   .submit {
   background-color: #092348;
   color: #FAFAFA;
+  font-family: "Oswald";
   }
 
  .next-round {
@@ -94,7 +88,10 @@ footer {
   margin: 0 auto;
   font-size: 24px;
   width: 200px;
-  height: 60px;
+  height: 80px;
+  font-family: "Oswald";
+  color: #092348;
+
 }
 
 #release-year {
@@ -104,4 +101,58 @@ footer {
     margin-top: 20px;
     text-align: center;
     color: #092348;
+    margin-left: 20px;
+}
+
+#high-score-final {
+  font-size: 32px;
+  text-align: center;
+  font-family: "Oswald";
+  color: #092348;
+}
+
+h3 {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.restart {
+  font-size: 32px;
+  text-align: center;
+  font-family: "Oswald";
+  color: #092348;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.round-score-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Oswald";
+  color: #092348;
+}
+
+.start {
+  font-family: "Oswald";
+  color: #092348;
+}
+
+h5 {
+  font-family: "Oswald";
+  color: #092348;
+}
+
+.handle-label {
+  position: absolute;
+  top: -30px;
+  transform: translateX(-50%);
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
 }
