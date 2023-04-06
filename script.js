@@ -144,7 +144,7 @@ let totalScore = 0;
 let score = 0;
 
 
-//Slider
+//CREATE BOTH SLIDERS
 // get a reference to the slider element
 const slider = document.getElementById('slider');
 
@@ -163,6 +163,7 @@ noUiSlider.create(slider, {
 }
 });
 
+// ADD LABEL FOR SELECTED YEAR
 const yearLabel = document.createElement('div');
 yearLabel.classList.add('year-label');
 slider.parentElement.insertBefore(yearLabel, slider);
@@ -172,8 +173,6 @@ slider.noUiSlider.on('update', function (values, handle) {
     yearLabel.innerHTML = year;
 });
 
-
-// your code that uses the "slider" variable here
 slider.noUiSlider.set(1950);
 yearLabel.innerHTML = 1950;
 
@@ -182,20 +181,47 @@ slider.noUiSlider.on('update', function (values, handle) {
 });
 
 
+// SECOND SLIDER TO SHOW DIFFERENCE
+const tooltipSlider = document.getElementById('slider2');
+
+    noUiSlider.create(tooltipSlider, {
+        start: [1950, 2023],
+    tooltips: [true, true],
+        step: 1,
+        connect: true,
+        range: {
+            'min': 1900,
+            'max': 2023
+        },
+        pips: {
+            mode: 'values',
+            values: Array.from(Array(13).keys()).map(x => x * 10 + 1900),
+            density: 10
+        }
+    });
+
 $("#round").html("Round " + currentRound + " of " + totalRounds);
 $("#points").html("");
 $(".next-round").hide();
 $(".reload").hide();
+$(".restart").hide();
+ $("#slider2").hide();
 
-// Function to start a new round
-function startRound() {
-  // Generate a random song using Spotify API
-  getASong();
-  $(".next-round").hide();
+getASong();
+
+function restart() {
+  //Reload page
+    location.reload();
 }
 
 function submitAnswer() {
+
   const selectedYear = Math.round(slider.noUiSlider.get());
+
+  slider2.noUiSlider.updateOptions({
+  start: [selectedYear, release_year] });
+  $("#slider2").show();
+
   const difference = Math.abs(selectedYear - release_year);
   if (difference === 0) {
     score = 1000;
@@ -219,9 +245,12 @@ function submitAnswer() {
     score = 222;
   } else if (difference === 10) {
     score = 111;
+  } else {
+    score = 0;
   }
+
   totalScore += score;
-  const result = `You scored ${score} points`;
+  const result = `You scored ${score} points in Round ${currentRound} `;
   const total = `Total score: ${totalScore}`;
 
   // update the HTML elements
@@ -231,9 +260,16 @@ function submitAnswer() {
     $(".next-round").show();
 
     // Display the release year above the Spotify web player
+    $("#release-year").show();
     const releaseYearDiv = document.getElementById("release-year");
     releaseYearDiv.innerHTML = release_year;
     releaseYearDiv.style.display = "inline-block";
+
+    if (currentRound < 5) {
+        document.getElementById("next-round big-button").textContent = "Next Round";
+    } else {
+        document.getElementById("next-round big-button").textContent = "Results";
+}
 }
 
 // function to go to the next round
@@ -242,12 +278,14 @@ function nextRound() {
    if (currentRound > totalRounds) {
     showFinalScore();
      $(".next-round").hide();
+     $("#release-year").hide();
     return;
 }
   const round = `Round: ${currentRound} / ${totalRounds}`;
   $("#round").html(round);
   $(".submit").show();
   $(".next-round").hide();
+  $("#slider2").hide();
   $(".reload").show();
   getASong();
 }
@@ -277,8 +315,11 @@ function saveTrack(tid) {
 function showFinalScore() {
  $("#spotify-web-player").hide();
  $(".next-round").hide();
+ $("#points").hide();
  $(".reload").hide();
  $(".final-score").show();
+ $(".restart").show();
+
 
 // retrieve and display high score if possible
 let highScore = localStorage.getItem("highScore");
