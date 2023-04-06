@@ -38,17 +38,22 @@
         <h1 class="text-tangerine">Chronosong</h1>
     <div class="game-container">
     <div class="game-left">
-    <h2 id="round">Round  / 5 </h2> <h2><button id="next-round big-button" class="next-round btn btn-sm" onclick="nextRound()">
+      <div class="round-score-line">
+    <h2 id="round">Round  / 5 </h2>
+    <h3 id="points"></h3>
+      <h2 id="total-score"></h2>
+      </div>
+    <h2><button id="next-round big-button" class="next-round btn btn-sm" onclick="nextRound()">
           Next Round
         </button></h2>
-    <h3 id="points"></h3>
-    <h3 id="total-score"></h3>
             <h3 id="high-score-final"></h3>
+            <h3 id="restart"><button id="restart big-button" class="restart btn btn-sm" onclick="restart()">
+              Restart?</button></h3>
 
     <div class="row padding">
       <center>
         <button id="big-button" class="start btn btn-sm" onclick="getASong()">
-          Click Start (Spotify Premium will autoplay)
+          Start (Spotify Premium should autoplay)
         </button>
           <button id="big-button" class="reload btn btn-sm" onclick="getASong()">
           Reload song
@@ -62,15 +67,15 @@
     <div class="row padding">
                <div id="spotify-web-player">
       <center class="contender">
-        <a href="#" onclick="saveTrack('current-track-name-save')">
+<!--        <a href="#" onclick="saveTrack('current-track-name-save')">
           <img style="display:none;" id="current-track-name-save" src="//:0" />
-        </a>
+        </a>-->
         <br />
         <iframe
           id="embed-uri"
           src="about:blank"
-          width="300"
-          height="380"
+          width="250"
+          height="150"
           frameborder="0"
           allowtransparency="true"
           allow="encrypted-media"
@@ -85,18 +90,19 @@
   </div>
       <div id="release-year" style="display: none;"></div>
   <div class="col-md-12" id="slider-container">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.css" />
     <div id="slider"></div>
     <div id="year-label"></div>
   </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.css" />
 <div class="row padding">
   <center>
     <button id="big-button" class="submit btn btn-sm" onclick="submitAnswer()">
       Submit
     </button>
   </center>
+        <div id="slider2"></div>
 </div>
     </div>
     <footer>
