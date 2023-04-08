@@ -74,7 +74,6 @@ footer {
 
   #embed-uri {
     margin-top: 10px;
-    margin-bottom: 10px;
   }
 
   .submit {
@@ -97,11 +96,9 @@ footer {
 #release-year {
     font-family: "Oswald", cursive;
     font-size: 60px;
-    margin-bottom: 0px;
-    margin-top: 20px;
+    margin-bottom: 20px;
     text-align: center;
     color: #092348;
-    margin-left: 20px;
 }
 
 #high-score-final {
@@ -109,6 +106,8 @@ footer {
   text-align: center;
   font-family: "Oswald";
   color: #092348;
+  padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 h3 {
@@ -122,11 +121,11 @@ h3 {
   text-align: center;
   font-family: "Oswald";
   color: #092348;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
+/*
 .round-score-line {
   display: flex;
   justify-content: space-between;
@@ -134,13 +133,16 @@ h3 {
   font-family: "Oswald";
   color: #092348;
 }
+*/
+
+#songQuestion {
+    font-family: "Oswald";
+    text-align: center;
+    color: #092348;
+  }
+
 
 .start {
-  font-family: "Oswald";
-  color: #092348;
-}
-
-h5 {
   font-family: "Oswald";
   color: #092348;
 }
@@ -155,4 +157,29 @@ h5 {
   text-align: center;
   pointer-events: none;
   user-select: none;
+}
+
+#spotify-web-player {
+height: 150px;
+}
+
+#total-score {
+  font-size: 32px;
+  text-align: right;
+  font-family: "Oswald";
+  color: #092348;
+}
+
+#round {
+  font-size: 32px;
+  text-align: center;
+  font-family: "Oswald";
+  color: #092348;
+}
+
+#points {
+  font-size: 32px;
+  text-align: right;
+  font-family: "Oswald";
+  color: #092348;
 }
