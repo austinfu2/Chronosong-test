@@ -41,14 +41,14 @@
       <div class="round-score-line">
     <h2 id="round">Round  / 5 </h2>
     <h3 id="points"></h3>
-      <h2 id="total-score"></h2>
+      <h2 id="total-score">Total Score: 0</h2>
       </div>
     <h2><button id="next-round big-button" class="next-round btn btn-sm" onclick="nextRound()">
           Next Round
         </button></h2>
             <h3 id="high-score-final"></h3>
             <h3 id="restart"><button id="restart big-button" class="restart btn btn-sm" onclick="restart()">
-              Restart?</button></h3>
+              Restart</button></h3>
 
     <div class="row padding">
       <center>
@@ -64,7 +64,6 @@
 
 
     <div class="game-right">
-    <div class="row padding">
                <div id="spotify-web-player">
       <center class="contender">
 <!--        <a href="#" onclick="saveTrack('current-track-name-save')">
@@ -82,13 +81,14 @@
         ></iframe>
       </center>
     </div>
-    </div>
 
     <div class="row">
   <div class="col-md-12" id="songQuestion">
     <h5>What year was this song released?</h5>
   </div>
-      <div id="release-year" style="display: none;"></div>
+        <div class="col-md-12" id="release-year">
+            <h5 style="display: none;"></h5>
+          </div>
   <div class="col-md-12" id="slider-container">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.css" />
