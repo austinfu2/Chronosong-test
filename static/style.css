@@ -103,21 +103,19 @@ footer {
 
 #high-score-final {
   font-size: 32px;
-  text-align: center;
+  text-align: left;
   font-family: "Oswald";
   color: #092348;
-  padding-bottom: 10px;
-  padding-top: 10px;
+
 }
 
 h3 {
-  text-align: center;
   margin: 0;
   padding: 0;
 }
 
-.restart {
-  font-size: 32px;
+#restart {
+  font-size: 62px;
   text-align: center;
   font-family: "Oswald";
   color: #092348;
@@ -125,7 +123,7 @@ h3 {
   padding-bottom: 10px;
 }
 
-/*
+
 .round-score-line {
   display: flex;
   justify-content: space-between;
@@ -133,12 +131,13 @@ h3 {
   font-family: "Oswald";
   color: #092348;
 }
-*/
+
 
 #songQuestion {
     font-family: "Oswald";
     text-align: center;
     color: #092348;
+    padding-top:40px;
   }
 
 
