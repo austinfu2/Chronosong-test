@@ -18,7 +18,7 @@ const authEndpoint = "https://accounts.spotify.com/authorize";
 
 // Replace with your app's client ID, redirect URI and desired scopes
 const clientId = "22aecdf08e6048a08c0d64f052b035c2";
-const redirectUri = "https://www.chronosong.pages.dev";
+const redirectUri = "http://127.0.0.1:5000/";
 const scopes = [
   "streaming",
   "user-modify-playback-state",
@@ -52,12 +52,12 @@ window.onSpotifyPlayerAPIReady = () => {
 
   // Playback status updates
   player.on("player_state_changed", state => {
-    console.log(state);
+   // console.log(state);
   });
 
   // Ready
   player.on("ready", data => {
-    console.log("Ready with Device ID", data.device_id);
+  //  console.log("Ready with Device ID", data.device_id);
     deviceId = data.device_id;
   });
 
@@ -75,7 +75,6 @@ function play(device_id, track) {
       xhr.setRequestHeader("Authorization", "Bearer " + _token);
     },
     success: function(data) {
-      console.log(data);
     }
   });
 }
@@ -93,6 +92,11 @@ function makeid(length) {
 
 let release_year;
 
+function restart() {
+  //Reload page
+    location.reload();
+}
+
 function getASong() {
   let random_seed = makeid(2);
   let random_offset = Math.floor(Math.random() * 2000); // returns a random integer from 0 to 9
@@ -107,7 +111,6 @@ function getASong() {
       xhr.setRequestHeader("Authorization", "Bearer " + _token);
     },
     success: function(data) {
-      console.log(data);
       let trackUri = data.tracks.items[0].uri;
       let releaseDate = data.tracks.items[0].album.release_date;
 
@@ -131,9 +134,9 @@ function getASong() {
 
       $(".start").hide();
     },
-    error: function (xhr, ajaxOptions, thrownError) {
-        alert("please Reload Song, this Spotify link did not work");
-      },
+    error : function() {
+        console.log("THIS IS WHERE WE SHOULD TRY TO GET A SONG AGAIN");
+    }
     });
 }
 
@@ -145,7 +148,6 @@ let score = 0;
 
 
 //CREATE BOTH SLIDERS
-// get a reference to the slider element
 const slider = document.getElementById('slider');
 
 noUiSlider.create(slider, {
@@ -209,13 +211,8 @@ $(".restart").hide();
 
 getASong();
 
-function restart() {
-  //Reload page
-    location.reload();
-}
 
 function submitAnswer() {
-
   const selectedYear = Math.round(slider.noUiSlider.get());
 
   slider2.noUiSlider.updateOptions({
@@ -251,7 +248,7 @@ function submitAnswer() {
 
   totalScore += score;
   const result = `You scored ${score} points in Round ${currentRound} `;
-  const total = `Total score: ${totalScore}`;
+  const total = `Total Score: ${totalScore}`;
 
   // update the HTML elements
     $("#points").html(result);
@@ -280,7 +277,8 @@ function nextRound() {
      $(".next-round").hide();
      $("#release-year").hide();
     return;
-}
+    }
+
   const round = `Round: ${currentRound} / ${totalRounds}`;
   $("#round").html(round);
   $(".submit").show();
@@ -303,7 +301,7 @@ function saveTrack(tid) {
       xhr.setRequestHeader("Authorization", "Bearer " + _token);
     },
     success: function(data) {
-      console.log(data);
+    //  console.log(data);
       $("#" + tid).attr(
         "src",
         "https://cdn.glitch.com/eed3cfeb-d097-4769-9d03-2d3a6cc7c004%2Ficons8-heart-24(1).png?v=1597232463038"
@@ -319,7 +317,6 @@ function showFinalScore() {
  $(".reload").hide();
  $(".final-score").show();
  $(".restart").show();
-
 
 // retrieve and display high score if possible
 let highScore = localStorage.getItem("highScore");
