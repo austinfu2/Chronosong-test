@@ -209,8 +209,10 @@ $(".reload").hide();
 $(".restart").hide();
  $("#slider2").hide();
 
-getASong();
+let highScore = localStorage.getItem("highScore");
+$("#high-score-final").html(`High Score: ${highScore}`);
 
+getASong();
 
 function submitAnswer() {
   const selectedYear = Math.round(slider.noUiSlider.get());
