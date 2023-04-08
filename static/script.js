@@ -18,7 +18,7 @@ const authEndpoint = "https://accounts.spotify.com/authorize";
 
 // Replace with your app's client ID, redirect URI and desired scopes
 const clientId = "dbaf8fe7fce641d98710a68e488edf81";
-const redirectUri = "http://www.chronosong.pages.dev";
+const redirectUri = "http://127.0.0.1:5000";
 const scopes = [
   "streaming",
   "user-modify-playback-state",
@@ -135,7 +135,7 @@ function getASong() {
       $(".start").hide();
     },
     error : function() {
-        console.log("THIS IS WHERE WE SHOULD TRY TO GET A SONG AGAIN");
+        getASong();
     }
     });
 }
