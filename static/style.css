@@ -115,12 +115,16 @@ h3 {
 }
 
 #restart {
-  font-size: 62px;
   text-align: center;
   font-family: "Oswald";
   color: #092348;
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+.restart {
+  font-size: 36px;
+  text-align: center;
 }
 
 
